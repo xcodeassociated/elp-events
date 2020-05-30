@@ -1,0 +1,55 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.4.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'groovy'
+	id 'java'
+	id 'java-library'
+	id 'maven'
+}
+
+group = 'com.xcodeassociated'
+version = '0.0.1-SNAPSHOT'
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+repositories {
+	mavenCentral()
+	maven { url "http://oss.jfrog.org/artifactory/oss-snapshot-local/" }
+}
+
+bootJar {
+	enabled = false
+}
+
+jar {
+	enabled = true
+}
+
+dependencies {
+	implementation 'org.springframework.kafka:spring-kafka'
+
+	compile "org.jetbrains:annotations:18.0.0"
+	compile "org.apache.commons:commons-lang3:3.9"
+	annotationProcessor 'org.projectlombok:lombok'
+	compileOnly 'org.projectlombok:lombok'
+	compile "org.springframework.plugin:spring-plugin-core:2.0.0.RELEASE"
+
+	compile "net.logstash.logback:logstash-logback-encoder:6.3"
+	compile "com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.10.3"
+	compile "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.10.3"
+
+	compile "org.codehaus.groovy:groovy-all:3.0.2"
+	testCompile platform("org.spockframework:spock-bom:2.0-M2-groovy-2.5")
+	testCompile "org.spockframework:spock-core:2.0-M2-groovy-2.5"
+	testCompile "org.spockframework:spock-spring:2.0-M2-groovy-2.5"
+	testCompile "org.spockframework:spock-junit4:2.0-M2-groovy-2.5"
+	testCompile "cglib:cglib-nodep:3.3.0"
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
